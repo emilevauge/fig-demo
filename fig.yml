@@ -1,0 +1,19 @@
+shipyard-rethinkdb-data:
+    image: shipyard/rethinkdb
+    entrypoint: /bin/bash
+
+shipyard-rethinkdb:
+  image: shipyard/rethinkdb
+  volumes_from:
+    - shipyard-rethinkdb-data
+  expose:
+    - "49154"
+    - "49153"
+    - "49155"
+
+shipyard:
+    image: shipyard/shipyard
+    ports:
+        - "8080:8080"
+    links:
+        - rethinkdb:rethinkdb
